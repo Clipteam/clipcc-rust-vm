@@ -1,0 +1,43 @@
+[package]
+name = "clipcc_rust_vm"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+debug = true
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+wasm-bindgen = "0.2"
+
+[target.'cfg(target_arch = "wasm32")'.dependencies.web-sys]
+version = "0.3"
+features = [
+  "console"
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+
+once_cell = "1.9.0"
+retain_mut = "0.1.5"
+id-arena = "2.2"
+generational-arena = "0.2"
+
+# Use in random
+getrandom = { version = "0.2", features = ["js"] }
+rand = { version = "^0.8", features = ["small_rng"] }
+
+chrono = "0.4"
+
+json = "0.12"
+zip = { version = "^0.6", default-features = true }
+
+slabmap = "0.1"
+# cpal = ""
